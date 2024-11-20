@@ -25,7 +25,7 @@
 2. **Build the Plugin:**
    Compile the Go program:
 
-   - `go build -o kubectl-multiclone main.go rancher.go kubeclient.go modifications.go gvr.go`
+   - `go build -o kubectl-multiclone ./pkg/`
 
 3. **Install the Plugin:**
    Move the executable to a directory in your `PATH`:
