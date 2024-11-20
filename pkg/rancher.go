@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -33,9 +34,17 @@ func GetClusterKubeconfig(config *RancherConfig, clusterID string) ([]byte, erro
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(config.Token, "")
 
-	resp, err := http.DefaultClient.Do(req)
+	// Set the Authorization header with the Bearer token
+	req.Header.Set("Authorization", "Bearer "+config.Token)
+
+	// Create a custom HTTP client that skips TLS verification
+	insecureTransport := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	insecureClient := &http.Client{Transport: insecureTransport}
+
+	resp, err := insecureClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
