@@ -1,5 +1,5 @@
 ## Description
-**kubectl multiclone** is a **kubectl** plugin that empowers users to clone Kubernetes resources across multiple clusters and projects managed by Rancher. It simplifies the process of duplicating resources from one cluster to another or within different namespaces and projects, with optional on-the-fly modifications. This tool enhances multi-cluster resource management, making it invaluable for environments where Rancher orchestrates numerous Kubernetes clusters.
+**kubectl clone** is a **kubectl** plugin that empowers users to clone Kubernetes resources across multiple clusters and projects managed by Rancher. It simplifies the process of duplicating resources from one cluster to another or within different namespaces and projects, with optional on-the-fly modifications. This tool enhances multi-cluster resource management, making it invaluable for environments where Rancher orchestrates numerous Kubernetes clusters.
 
 ## Goals
 1. **Seamless Multi-Cluster Cloning**
@@ -25,34 +25,34 @@
 2. **Build the Plugin:**
    Compile the Go program:
 
-   - `go build -o kubectl-multiclone ./pkg/`
+   - `go build -o kubectl-clone ./pkg/`
 
 3. **Install the Plugin:**
    Move the executable to a directory in your `PATH`:
-   - `mv kubectl-multiclone /usr/local/bin/`
+   - `mv kubectl-clone /usr/local/bin/`
 
    Ensure the file is executable:
-   - `chmod +x /usr/local/bin/kubectl-multiclone`
+   - `chmod +x /usr/local/bin/kubectl-clone`
 
 
 4. **Verify the Plugin Installation:**
    Test the plugin by running:
 
-   - `kubectl multiclone --help`
+   - `kubectl clone --help`
 
-   You should see the usage information for the `kubectl-multiclone` plugin.
+   You should see the usage information for the `kubectl-clone` plugin.
 
 ### **Usage Examples**
 1. **Clone a Deployment from One Cluster to Another:**
-   - `kubectl multiclone --source-cluster c-abc123 --type deployment --name nginx-deployment --target-cluster c-def456 --new-name nginx-deployment-clone`
+   - `kubectl clone --source-cluster c-abc123 --type deployment --name nginx-deployment --target-cluster c-def456 --new-name nginx-deployment-clone`
 
 
 2. **Clone a Service into Another Namespace and Modify Labels:**
-   - `kubectl multiclone --source-cluster c-abc123 --type service --name my-service --source-namespace default --target-cluster c-def456 --target-namespace staging --modify "metadata.labels.env=staging"`
+   - `kubectl clone --source-cluster c-abc123 --type service --name my-service --source-namespace default --target-cluster c-def456 --target-namespace staging --modify "metadata.labels.env=staging"`
 
 
 3. **Clone a ConfigMap within the Same Cluster but Different Project:**
-   - `kubectl multiclone --source-cluster c-abc123 --source-project p-abc123 --type configmap --name my-config --target-cluster c-abc123 --target-project p-def456 --target-namespace dev`
+   - `kubectl clone --source-cluster c-abc123 --source-project p-abc123 --type configmap --name my-config --target-cluster c-abc123 --target-project p-def456 --target-namespace dev`
 
 4. **Clone a Secret with a New Name and Modifications:**
-   - `kubectl multiclone --source-cluster c-abc123  --type secret --name my-secret --target-cluster c-def456 --new-name my-secret-copy --modify "metadata.annotations.description=Cloned Secret"`
+   - `kubectl clone --source-cluster c-abc123  --type secret --name my-secret --target-cluster c-def456 --new-name my-secret-copy --modify "metadata.annotations.description=Cloned Secret"`

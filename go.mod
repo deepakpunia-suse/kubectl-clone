@@ -1,4 +1,4 @@
-module github.com/deepakpunia-suse/kubectl-multiclone
+module github.com/deepakpunia-suse/kubectl-clone
 
 go 1.12.0
 
